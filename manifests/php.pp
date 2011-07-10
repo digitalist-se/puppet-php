@@ -7,7 +7,8 @@ class php (
     'php5-curl',
     'php5-dev',
     'php5-dbg',
-    'php5-xdebug'
+    'php-pear',
+    'build-essential'
   ],
   $conf_files = [
     'apache2/php.ini',
@@ -22,11 +23,17 @@ class php (
     'conf.d/pdo_mysql.ini',
     'conf.d/security',
     'conf.d/uploadprogress.ini',
-    'conf.d/xdebug.ini'
+  ],
+  $pecl_packages = [
+    'uploadprogress'
   ]
 ) {
   package { $packages:
     ensure => installed,
+  }
+
+  pecl_package { $pecl_packages:
+    
   }
 
   conf_file { $conf_files:
@@ -38,7 +45,14 @@ class php (
       owner => root,
       group => root,
       mode => 0444,
-      source => "puppet:///php/${name}"
+      source => "puppet:///modules/php/${name}"
+    }
+  }
+
+  define pecl_package() {
+    exec { "pecl-install-${name}":
+      command => "/usr/bin/pecl install $name",
+      require => Package['php-pear', 'build-essential', 'php5-dev']
     }
   }
 }
