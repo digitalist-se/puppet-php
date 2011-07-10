@@ -1,5 +1,4 @@
 class php (
-  $module_root = '/tmp/vagrant-puppet/manifests/modules/php',
   $packages = [
     'php5',
     'php5-mysql',
@@ -39,7 +38,7 @@ class php (
       owner => root,
       group => root,
       mode => 0444,
-      source => "${module_root}/files/${name}"
+      source => "puppet:///php/${name}"
     }
   }
 }
