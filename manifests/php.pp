@@ -26,7 +26,8 @@ class php (
   ],
   $pecl_packages = [
     'uploadprogress'
-  ]
+  ],
+  $development = False
 ) {
   package { $packages:
     ensure => installed,
@@ -34,6 +35,13 @@ class php (
 
   pecl_package { $pecl_packages:
     
+  }
+
+  if $development {
+    pecl_package { "xdebug": }
+    conf_file { "conf.d/dev.ini":
+      
+    }
   }
 
   conf_file { $conf_files:
@@ -45,7 +53,8 @@ class php (
       owner => root,
       group => root,
       mode => 0444,
-      source => "puppet:///modules/php/${name}"
+      source => "puppet:///modules/php/${name}",
+      require => Package[$packages]
     }
   }
 
