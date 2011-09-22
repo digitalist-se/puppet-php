@@ -33,36 +33,16 @@ class php (
     ensure => installed,
   }
 
-  pecl_package { $pecl_packages:
-    
-  }
+  php::pecl_package { $pecl_packages: }
 
   if $development {
-    pecl_package { "xdebug": }
-    conf_file { "conf.d/dev.ini":
+    php::pecl_package { "xdebug": }
+    php::conf_file { "conf.d/dev.ini":
       
     }
   }
 
-  conf_file { $conf_files:
+  php::conf_file { $conf_files:
     require => Package['php5']
-  }
-
-  define conf_file() {
-    file { "/etc/php5/${name}":
-      owner => root,
-      group => root,
-      mode => 0444,
-      source => "puppet:///modules/php/${name}",
-      require => Package[$php::packages]
-    }
-  }
-
-  define pecl_package() {
-    exec { "pecl-install-${name}":
-      command => "/usr/bin/pecl install $name",
-      require => Package['php-pear', 'build-essential', 'php5-dev'],
-      unless => "/usr/bin/test -n '/usr/bin/pecl list | grep $name'"
-    }
   }
 }
