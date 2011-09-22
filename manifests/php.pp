@@ -54,14 +54,15 @@ class php (
       group => root,
       mode => 0444,
       source => "puppet:///modules/php/${name}",
-      require => Package[$packages]
+      require => Package[$php::packages]
     }
   }
 
   define pecl_package() {
     exec { "pecl-install-${name}":
       command => "/usr/bin/pecl install $name",
-      require => Package['php-pear', 'build-essential', 'php5-dev']
+      require => Package['php-pear', 'build-essential', 'php5-dev'],
+      unless => "/usr/bin/test -n '/usr/bin/pecl list | grep $name'"
     }
   }
 }
