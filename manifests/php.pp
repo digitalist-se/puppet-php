@@ -37,7 +37,7 @@ class php (
 
   if $development {
     php::pecl_package { "xdebug": }
-    php::conf_file { "conf.d/dev.ini":
+    php::conf_file { ["conf.d/dev.ini"]:
       
     }
   }
