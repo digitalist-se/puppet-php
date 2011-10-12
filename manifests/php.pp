@@ -8,6 +8,8 @@ class php (
     'php5-dev',
     'php5-dbg',
     'php-pear',
+    'php5-sqlite',
+    'php5-intl',
     'build-essential'
   ],
   $conf_files = [
