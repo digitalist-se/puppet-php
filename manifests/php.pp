@@ -7,6 +7,7 @@ class php (
     'php5-curl',
     'php5-dev',
     'php5-dbg',
+    'php5-mcrypt',
     'php-pear',
     'php5-sqlite',
     'php5-intl',
