@@ -3,7 +3,6 @@ class php (
     'php5',
     'php5-mysql',
     'php5-gd',
-    'php-apc',
     'php5-curl',
     'php5-dev',
     'php5-dbg',
@@ -29,7 +28,8 @@ class php (
     'conf.d/uploadprogress.ini',
   ],
   $pecl_packages = [
-    'uploadprogress'
+    'uploadprogress',
+    'apc'
   ],
   $development = False
 ) {
@@ -42,7 +42,7 @@ class php (
   if $development {
     php::pecl_package { "xdebug": }
     php::conf_file { ["conf.d/dev.ini"]:
-      
+
     }
   }
 
