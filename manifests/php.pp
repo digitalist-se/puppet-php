@@ -11,8 +11,8 @@ class php (
     'php5-sqlite',
     'php5-intl',
     'build-essential',
-    'php5-ldap'
-    'libapache2-mod-php5',
+    'php5-ldap',
+    'libapache2-mod-php5'
   ],
   $conf_files = [
     'apache2/php.ini',
