@@ -12,7 +12,8 @@ class php (
     'php5-intl',
     'build-essential',
     'php5-ldap',
-    'libapache2-mod-php5'
+    'libapache2-mod-php5',
+    'php-apc'
   ],
   $conf_files = [
     'apache2/php.ini',
@@ -30,7 +31,6 @@ class php (
   ],
   $pecl_packages = [
     'uploadprogress',
-    'apc'
   ],
   $development = False
 ) {
