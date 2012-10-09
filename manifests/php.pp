@@ -50,4 +50,5 @@ class php (
   php::conf_file { $conf_files:
     require => Package['php5']
   }
+  Package { require => Exec['apt-get update'] }
 }
