@@ -1,19 +1,21 @@
 class php (
   $packages = [
     'php5',
+    'php5-cli',
+    'php5-common',
     'php5-mysql',
     'php5-gd',
     'php5-curl',
     'php5-dev',
-    'php5-dbg',
     'php5-mcrypt',
     'php-pear',
     'php5-sqlite',
-    'php5-intl',
     'build-essential',
     'php5-ldap',
     'libapache2-mod-php5',
-    'php-apc'
+  ],
+  $new_packages = [
+    'php5-intl',
   ],
   $conf_files = [
     'apache2/php.ini',
