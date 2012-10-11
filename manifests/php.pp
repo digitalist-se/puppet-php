@@ -33,24 +33,48 @@ class php (
   ],
   $pecl_packages = [
     'uploadprogress',
+    'apc'
   ],
-  $development = False
+  $development = false,
+  $legacy = false
 ) {
-  package { $packages:
-    ensure => installed,
+  if $legacy {
+    file { "/etc/apt/sources.list.d/hardy.list":
+      owner => root,
+      group => root,
+      mode => 0444,
+      source => "puppet:///modules/php/hardy.list",
+    }
+    file { "/etc/apt/preferences.d/php":
+      owner => root,
+      group => root,
+      mode => 0444,
+      content => template("php/php.pin.erb"),
+    }
+    exec { "php-apt-update":
+      command => "/usr/bin/apt-get update",
+      require => [File["/etc/apt/sources.list.d/hardy.list"], File["/etc/apt/preferences.d/php"]]
+    }
+    package { $packages:
+      require => Exec["php-apt-update"]
+    }
   }
-
+  else {
+    package { $packages:
+      ensure => installed,
+    }
+    package { $new_packages:
+      ensure => installed,
+    }
+  }
   php::pecl_package { $pecl_packages: }
 
   if $development {
     php::pecl_package { "xdebug": }
-    php::conf_file { ["conf.d/dev.ini"]:
-
-    }
+    php::conf_file { ["conf.d/dev.ini"]: }
   }
-
   php::conf_file { $conf_files:
-    require => Package['php5']
+    require => Package['php5']    
   }
   Package { require => Exec['apt-get update'] }
 }
