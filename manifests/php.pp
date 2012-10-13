@@ -16,6 +16,7 @@ class php (
   ],
   $new_packages = [
     'php5-intl',
+    'php-apc'
   ],
   $conf_files = [
     'apache2/php.ini',
@@ -33,6 +34,8 @@ class php (
   ],
   $pecl_packages = [
     'uploadprogress',
+  ],
+  $old_pecl = [
     'apc'
   ],
   $development = false,
@@ -58,6 +61,7 @@ class php (
     package { $packages:
       require => Exec["php-apt-update"]
     }
+    php::pecl_package { $old_pecl: }
   }
   else {
     package { $packages:
