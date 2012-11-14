@@ -1,7 +1,7 @@
 class php::mongo () {
   php::pecl_package { "mongo": }
 
-  file { "/etc/monit/monitrc":
+  file { "/etc/php5/conf.d/20-mongo":
     owner  => root,
     group  => root,
     mode   => 0700,
