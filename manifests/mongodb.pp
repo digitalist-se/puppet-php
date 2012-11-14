@@ -6,7 +6,7 @@ class php::mongo () {
     group  => root,
     mode   => 0700,
     content => "extension=mongo.so",
-    require => Php::pecl_package['mongo'],
+    require => php::pecl_package['mongo'],
   }
 
 }
